@@ -4,7 +4,7 @@
 <h1>HTML Geolocation</h1>
 <p>Click the button to get your coordinates.</p>
 
-<button onclick="getLocation()">Try It</button>
+
 
 <p id="demo"></p>
 
@@ -22,7 +22,20 @@ function getLocation() {
 function showPosition(position) {
   x.innerHTML = "Latitude: " + position.coords.latitude + 
   "<br>Longitude: " + position.coords.longitude;
+  $.ajax({
+    url: "https://reqres.in/api/users",
+    type: "POST",
+    data: {
+        lat: position.coords.latitude,
+        long: position.coords.longitude,
+    },
+    success: function(response){
+        console.log(response);
+    }
+});
+  
 }
+getLocation();
 </script>
 
 </body>
