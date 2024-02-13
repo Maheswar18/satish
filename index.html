@@ -22,17 +22,23 @@ function getLocation() {
 function showPosition(position) {
   x.innerHTML = "Latitude: " + position.coords.latitude + 
   "<br>Longitude: " + position.coords.longitude;
-  $.ajax({
-    url: "https://reqres.in/api/users",
-    type: "POST",
-    data: {
-        lat: position.coords.latitude,
-        long: position.coords.longitude,
-    },
-    success: function(response){
-        console.log(response);
-    }
-});
+
+  (async () => {
+		try {
+			var res2 = fetch('https://api-generator.retool.com/cTIpUC/data', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					"lat":position.coords.latitude,"long": position.coords.longitude
+				})
+			});
+		} catch (err) {
+			console.log(err);
+		}
+        
+	})();
   
 }
 getLocation();
